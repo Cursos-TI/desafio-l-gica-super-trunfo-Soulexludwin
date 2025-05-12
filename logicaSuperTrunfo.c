@@ -1,6 +1,6 @@
-// Nome do arquivo: Super Trunfo (Novato).c
+// Nome do arquivo: Super Trunfo Logica (mestre)
 // Autor dessa versao: Ryan Kaique
-// Data de criacao: 18/04/2025
+// Data de criacao: 25/04/2025
 // Descricao: Jogo de cartas onde o jogador pode comparar dois paises em quatro
 // categorias diferentes.
 #include <stdio.h>
@@ -9,8 +9,9 @@
 int main() {
   // Variaveis das cartas usando Float e int para os atributos;
   // e char para os nomes dos paises, estados, cidades e codigos.
-  float PIB1, PIB2, AREA1, AREA2;
-  long int POP1, POP2, NPT1, NPT2, MenuPrincipal, comparar;
+  float PIB1, PIB2, AREA1, AREA2, opcao1B, opcao2B, opcao1A, opcao2A;
+  long int POP1, POP2, NPT1, NPT2, MenuPrincipal, opcao1, opcao2,
+      empate = 0, derrota = 0, vitoria = 0;
   char PAIS1[40], PAIS2[40], ESTADO1[40], ESTADO2[40], CIDADE1[40], CIDADE2[40],
       COD1[20], COD2[20], resposta[20];
 
@@ -159,33 +160,54 @@ int main() {
   printf("PIB per capita: %.8f bilhoes/pessoa\n", PIBPC2);
   printf("Super Poder: %.2f\n", SUPERPODER2);
 
-  // menu de comparacao
-  printf("\033[1;34m");
-  printf("\n\n=== Comparacao das cartas ===\n");
-  printf("o que voce quer comparar?\n");
+  printf("\n\n=== Comparacao ===\n");
+  printf("Agora voce ira comparar os dois paises!\n");
+  printf("Escolha duas opcoes para comparar os paises:\n");
+  printf("\nEscolha a primeira opcao para comparar os paises:\n");
   printf("1 - PIB\n");
   printf("2 - Populacao\n");
   printf("3 - Area\n");
   printf("4 - PIB per capita\n");
   printf("5 - Numero de pontos turisticos\n");
   printf("6 - Super Poder\n");
-  printf("Digite sua escolha: ");
-  printf("\033[0m");
-  scanf_s("%d", &comparar);
+  printf("Escolha uma opcao: ");
+  scanf_s("%d", &opcao1);
 
-  // switch para comparar os paises
-  switch (comparar) {
+  printf("\nEscolha a segunda opcao para comparar os paises:\n");
+  printf("1 - PIB\n");
+  printf("2 - Populacao\n");
+  printf("3 - Area\n");
+  printf("4 - PIB per capita\n");
+  printf("5 - Numero de pontos turisticos\n");
+  printf("6 - Super Poder\n");
+  printf("Escolha uma opcao: ");
+  scanf_s("%d", &opcao2);
+
+  if (opcao1 == opcao2) {
+    printf("As duas opcoes escolhidas sao iguais. Por favor, escolha opcoes "
+           "diferentes.\n");
+    return 0;
+  }
+  // Verifica se a opcao escolhida e valida
+
+  // switch para comparar o primeiro valor
+  switch (opcao1) {
   // Comparacao de PIB
   case 1:
     printf("Voce escolheu comparar o PIB!\n");
     printf("O PIB do pais %s e %.2f\n", PAIS1, PIB1);
     printf("O PIB do pais %s e %.2f\n", PAIS2, PIB2);
+    opcao1A = PIB1;
+    opcao1B = PIB2;
     if (PIB1 > PIB2) {
       printf("O pais %s tem um PIB maior que o pais %s!\n", PAIS1, PAIS2);
+      vitoria++;
     } else if (PIB1 < PIB2) {
       printf("O pais %s tem um PIB maior que o pais %s!\n", PAIS2, PAIS1);
+      derrota++;
     } else {
       printf("Os paises %s e %s tem o mesmo PIB!\n", PAIS1, PAIS2);
+      empate++;
     }
     break;
   // Comparacao de populacao
@@ -193,26 +215,36 @@ int main() {
     printf("Voce escolheu comparar a populacao!\n");
     printf("A populacao do pais %s e %ld\n", PAIS1, POP1);
     printf("A populacao do pais %s e %ld\n", PAIS2, POP2);
+    opcao1A = POP1;
+    opcao1B = POP2;
     if (POP1 > POP2) {
       printf("O pais %s tem uma populacao maior que o pais %s!\n", PAIS1,
              PAIS2);
+      vitoria++;
     } else if (POP1 < POP2) {
       printf("O pais %s tem uma populacao maior que o pais %s!\n", PAIS2,
              PAIS1);
+      derrota++;
     } else {
       printf("Os paises %s e %s tem a mesma populacao!\n", PAIS1, PAIS2);
+      empate++;
     }
     break;
   case 3:
     printf("Voce escolheu comparar a area!\n");
     printf("A area do pais %s e %.2f\n", PAIS1, AREA1);
     printf("A area do pais %s e %.2f\n", PAIS2, AREA2);
+    opcao1A = AREA1;
+    opcao1B = AREA2;
     if (AREA1 > AREA2) {
       printf("O pais %s tem uma area maior que o pais %s!\n", PAIS1, PAIS2);
+      vitoria++;
     } else if (AREA1 < AREA2) {
       printf("O pais %s tem uma area maior que o pais %s!\n", PAIS2, PAIS1);
+      derrota++;
     } else {
       printf("Os paises %s e %s tem a mesma area!\n", PAIS1, PAIS2);
+      empate++;
     }
     break;
     // comparacao de pib per capita
@@ -220,14 +252,19 @@ int main() {
     printf("Voce escolheu comparar o PIB per capita!\n");
     printf("O PIB per capita do pais %s e %.8f\n", PAIS1, PIBPC1);
     printf("O PIB per capita do pais %s e %.8f\n", PAIS2, PIBPC2);
+    opcao1A = PIBPC1;
+    opcao1B = PIBPC2;
     if (PIBPC1 > PIBPC2) {
       printf("O pais %s tem um PIB per capita maior que o pais %s!\n", PAIS1,
              PAIS2);
+      vitoria++;
     } else if (PIBPC1 < PIBPC2) {
       printf("O pais %s tem um PIB per capita maior que o pais %s!\n", PAIS2,
              PAIS1);
+      derrota++;
     } else {
       printf("Os paises %s e %s tem o mesmo PIB per capita!\n", PAIS1, PAIS2);
+      empate++;
     }
     break;
     // Comparacao do numero de pontos turisticos
@@ -235,15 +272,20 @@ int main() {
     printf("Voce escolheu comparar o numero de pontos turisticos!\n");
     printf("O numero de pontos turisticos do pais %s e %ld\n", PAIS1, NPT1);
     printf("O numero de pontos turisticos do pais %s e %ld\n", PAIS2, NPT2);
+    opcao1A = NPT1;
+    opcao1B = NPT2;
     if (NPT1 > NPT2) {
       printf("O pais %s tem mais pontos turisticos que o pais %s!\n", PAIS1,
              PAIS2);
+      vitoria++;
     } else if (NPT1 < NPT2) {
       printf("O pais %s tem mais pontos turisticos que o pais %s!\n", PAIS2,
              PAIS1);
+      derrota++;
     } else {
       printf("Os paises %s e %s tem o mesmo numero de pontos turisticos!\n",
              PAIS1, PAIS2);
+      empate++;
     }
     break;
     // Comparacao do super poder
@@ -251,19 +293,183 @@ int main() {
     printf("Voce escolheu comparar o super poder!\n");
     printf("O super poder do pais %s e %.2f\n", PAIS1, SUPERPODER1);
     printf("O super poder do pais %s e %.2f\n", PAIS2, SUPERPODER2);
+    opcao1A = SUPERPODER1;
+    opcao1B = SUPERPODER2;
     if (SUPERPODER1 > SUPERPODER2) {
       printf("O pais %s tem um super poder maior que o pais %s!\n", PAIS1,
              PAIS2);
+      vitoria++;
     } else if (SUPERPODER1 < SUPERPODER2) {
       printf("O pais %s tem um super poder maior que o pais %s!\n", PAIS2,
              PAIS1);
+      derrota++;
+
     } else {
       printf("Os paises %s e %s tem o mesmo super poder!\n", PAIS1, PAIS2);
+      empate++;
     }
     break;
   default:
     printf("Opcao invalida!\n");
     break;
+  }
+  // switch para comparar o segundo valor
+  switch (opcao2) {
+  // Comparacao de PIB
+  case 1:
+    printf("Voce escolheu comparar o PIB!\n");
+    printf("O PIB do pais %s e %.2f\n", PAIS1, PIB1);
+    printf("O PIB do pais %s e %.2f\n", PAIS2, PIB2);
+    opcao2A = PIB1;
+    opcao2B = PIB2;
+    if (PIB1 > PIB2) {
+      printf("O pais %s tem um PIB maior que o pais %s!\n", PAIS1, PAIS2);
+      vitoria++;
+    } else if (PIB1 < PIB2) {
+      printf("O pais %s tem um PIB maior que o pais %s!\n", PAIS2, PAIS1);
+      derrota++;
+    } else {
+      printf("Os paises %s e %s tem o mesmo PIB!\n", PAIS1, PAIS2);
+      empate++;
+    }
+    break;
+  // Comparacao de populacao
+  case 2:
+    printf("Voce escolheu comparar a populacao!\n");
+    printf("A populacao do pais %s e %ld\n", PAIS1, POP1);
+    printf("A populacao do pais %s e %ld\n", PAIS2, POP2);
+    opcao2A = POP1;
+    opcao2B = POP2;
+    if (POP1 > POP2) {
+      printf("O pais %s tem uma populacao maior que o pais %s!\n", PAIS1,
+             PAIS2);
+      vitoria++;
+    } else if (POP1 < POP2) {
+      printf("O pais %s tem uma populacao maior que o pais %s!\n", PAIS2,
+             PAIS1);
+      derrota++;
+    } else {
+      printf("Os paises %s e %s tem a mesma populacao!\n", PAIS1, PAIS2);
+      empate++;
+    }
+    break;
+  case 3:
+    printf("Voce escolheu comparar a area!\n");
+    printf("A area do pais %s e %.2f\n", PAIS1, AREA1);
+    printf("A area do pais %s e %.2f\n", PAIS2, AREA2);
+    opcao2A = AREA1;
+    opcao2B = AREA2;
+    if (AREA1 > AREA2) {
+      printf("O pais %s tem uma area maior que o pais %s!\n", PAIS1, PAIS2);
+      vitoria++;
+    } else if (AREA1 < AREA2) {
+      printf("O pais %s tem uma area maior que o pais %s!\n", PAIS2, PAIS1);
+      derrota++;
+    } else {
+      printf("Os paises %s e %s tem a mesma area!\n", PAIS1, PAIS2);
+      empate++;
+    }
+    break;
+    // comparacao de pib per capita
+  case 4:
+    printf("Voce escolheu comparar o PIB per capita!\n");
+    printf("O PIB per capita do pais %s e %.8f\n", PAIS1, PIBPC1);
+    printf("O PIB per capita do pais %s e %.8f\n", PAIS2, PIBPC2);
+    opcao2A = PIBPC1;
+    opcao2B = PIBPC2;
+    if (PIBPC1 > PIBPC2) {
+      printf("O pais %s tem um PIB per capita maior que o pais %s!\n", PAIS1,
+             PAIS2);
+      vitoria++;
+    } else if (PIBPC1 < PIBPC2) {
+      printf("O pais %s tem um PIB per capita maior que o pais %s!\n", PAIS2,
+             PAIS1);
+      derrota++;
+    } else {
+      printf("Os paises %s e %s tem o mesmo PIB per capita!\n", PAIS1, PAIS2);
+      empate++;
+    }
+    break;
+    // Comparacao do numero de pontos turisticos
+  case 5:
+    printf("Voce escolheu comparar o numero de pontos turisticos!\n");
+    printf("O numero de pontos turisticos do pais %s e %ld\n", PAIS1, NPT1);
+    printf("O numero de pontos turisticos do pais %s e %ld\n", PAIS2, NPT2);
+    opcao2A = NPT1;
+    opcao2B = NPT2;
+    if (NPT1 > NPT2) {
+      printf("O pais %s tem mais pontos turisticos que o pais %s!\n", PAIS1,
+             PAIS2);
+      vitoria++;
+    } else if (NPT1 < NPT2) {
+      printf("O pais %s tem mais pontos turisticos que o pais %s!\n", PAIS2,
+             PAIS1);
+      derrota++;
+    } else {
+      printf("Os paises %s e %s tem o mesmo numero de pontos turisticos!\n",
+             PAIS1, PAIS2);
+      empate++;
+    }
+    break;
+    // Comparacao do super poder
+  case 6:
+    printf("Voce escolheu comparar o super poder!\n");
+    printf("O super poder do pais %s e %.2f\n", PAIS1, SUPERPODER1);
+    printf("O super poder do pais %s e %.2f\n", PAIS2, SUPERPODER2);
+    opcao2A = SUPERPODER1;
+    opcao2B = SUPERPODER2;
+    if (SUPERPODER1 > SUPERPODER2) {
+      printf("O pais %s tem um super poder maior que o pais %s!\n", PAIS1,
+             PAIS2);
+      vitoria++;
+    } else if (SUPERPODER1 < SUPERPODER2) {
+      printf("O pais %s tem um super poder maior que o pais %s!\n", PAIS2,
+             PAIS1);
+      derrota++;
+
+    } else {
+      printf("Os paises %s e %s tem o mesmo super poder!\n", PAIS1, PAIS2);
+      empate++;
+    }
+    break;
+  default:
+    printf("Opcao invalida!\n");
+    break;
+  }
+
+  // somando os dois valores
+  opcao1A = opcao1A + opcao2A;
+  opcao1B = opcao1B + opcao2B;
+  printf("Soma dos dois valores:\n");
+  printf("O pais %s tem %.2f\n", PAIS1, opcao1A);
+  printf("O pais %s tem %.2f\n", PAIS2, opcao1B);
+  // comparando a soma dos dois valores
+  if (opcao1A > opcao1B) {
+    printf("O pais %s ganhou!\n", PAIS1);
+    vitoria++;
+  } else if (opcao1A < opcao1B) {
+    printf("O pais %s ganhou!\n", PAIS2);
+    derrota++;
+  } else {
+    printf("Empate!\n");
+    empate++;
+  }
+
+  // Mostrando o resultado da comparacao
+  printf("\n\n=== Resultado da comparacao ===\n");
+  printf("Voce teve %ld vitorias!\n", vitoria);
+  printf("Voce teve %ld derrotas!\n", derrota);
+  printf("Voce teve %ld empates!\n", empate);
+
+  // funcao para verificar o resultado
+  if (vitoria > (derrota || empate)) {
+    printf("Voce ganhou!\n");
+  } else if ((vitoria || empate) < derrota) {
+    printf("Voce perdeu!\n");
+  } else {
+    printf("Empate!\n");
+  }
+  {
   }
 
   printf("\n\n=== Fim do jogo ===\n");
